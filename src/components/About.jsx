@@ -8,17 +8,21 @@ const skills = [
   'Full-stack Development',
 ]
 
+import useInView from '../hooks/useInView'
+
 export default function About() {
+  const section = useInView()
+
   return (
     <section id="about" className="py-20 px-4">
-      <div className="max-w-4xl mx-auto">
+      <div ref={section.ref} className={`max-w-4xl mx-auto fx-reveal ${section.inView ? 'is-in' : ''}`}>
         <h2 className="section-title">About me</h2>
         <p className="section-subtitle mb-8">
           I'm a Full-stack Web Developer from Cebu City with a passion for building clean, 
           responsive applications. I enjoy turning ideas into reality with code and 
           continuously learning new technologies.
         </p>
-        <div className="card">
+        <div className="card card-hover">
           <h3 className="text-lg font-semibold text-white mb-4">Skills & technologies</h3>
           <ul className="flex flex-wrap gap-3">
             {skills.map((skill) => (

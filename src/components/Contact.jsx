@@ -1,7 +1,11 @@
+import useInView from '../hooks/useInView'
+
 export default function Contact() {
+  const section = useInView()
+
   return (
     <section id="contact" className="py-20 px-4">
-      <div className="max-w-2xl mx-auto text-center">
+      <div ref={section.ref} className={`max-w-2xl mx-auto text-center fx-reveal ${section.inView ? 'is-in' : ''}`}>
         <h2 className="section-title">Get in touch</h2>
         <p className="section-subtitle mb-10 mx-auto">
           I'm open to new opportunities and collaborations. Reach out via GitHub or add your preferred contact below.

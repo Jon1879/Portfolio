@@ -10,34 +10,24 @@ const GITHUB_USER = 'Jon1879'
 const defaultProfile = {
   name: 'Jon',
   bio: 'Full-stack Web Developer',
-  avatar_url: 'https://avatars.githubusercontent.com/u/61281825?v=4',
   location: 'Cebu City',
 }
 
 export default function App() {
   const [profile, setProfile] = useState(defaultProfile)
-  const [repos, setRepos] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchGitHub = async () => {
       try {
-        const [userRes, reposRes] = await Promise.all([
-          fetch(`https://api.github.com/users/${GITHUB_USER}`),
-          fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=10`),
-        ])
+        const userRes = await fetch(`https://api.github.com/users/${GITHUB_USER}`)
         if (userRes.ok) {
           const user = await userRes.json()
           setProfile({
             name: user.name || 'Jon',
             bio: user.bio || 'Full-stack Web Developer',
-            avatar_url: user.avatar_url,
             location: user.location || 'Cebu City',
           })
-        }
-        if (reposRes.ok) {
-          const data = await reposRes.json()
-          setRepos(data)
         }
       } catch (err) {
         console.error('Failed to fetch GitHub data:', err)
@@ -65,7 +55,7 @@ export default function App() {
       <main>
         <Hero profile={profile} />
         <About />
-        <Projects repos={repos} />
+        <Projects />
         <Contact />
       </main>
       <Footer />
